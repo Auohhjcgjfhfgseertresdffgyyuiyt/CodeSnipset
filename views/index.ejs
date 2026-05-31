@@ -2,83 +2,129 @@
 
 <main class="container">
   
-  <div class="hero-section" style="text-align: center; padding: 40px 0; border-bottom: 2px solid var(--border-color); margin-bottom: 40px;">
-    <p style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #4b5563;">Halooo! Welcome To</p>
-    <h1 class="title" style="font-size: 3.5rem; margin: 16px 0;">FIK SNIPSET</h1>
-    <p class="description" style="max-width: 600px; margin: 0 auto 24px;">Sebuah Code Snipset untuk menyimpan dan share snipset, UI/UX minimalis dan responsif.</p>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <span class="tag tag-yellow snippet-library-tag">SNIPPET LIBRARY</span>
+    <h1 class="hero-title">
+      Ready-to-use <span class="highlight-red">code snippets</span><br>
+      for your next project.
+    </h1>
+    <p class="hero-desc">
+      Browse scrapers, APIs, UI components, utilities, and algorithms. Copy what you need, drop it into your project, or contribute your own.
+    </p>
     
-    <div class="action-buttons" style="justify-content: center;">
-      <a href="/admin" class="btn-neo icon-btn" style="text-decoration: none; background: var(--primary-yellow);">
-        <i class="fas fa-plus"></i> Create Snippet
+    <div class="hero-actions">
+      <a href="#gallery" class="btn-neo black-btn" style="text-decoration: none;">
+        Browse snippets &darr;
       </a>
-      <a href="#snippets" class="btn-neo icon-btn" style="text-decoration: none;">
-        <i class="fas fa-folder"></i> Browse All
+      <a href="#" class="btn-neo red-btn" style="text-decoration: none;">
+        <i class="fas fa-heart"></i> Support gw
       </a>
     </div>
   </div>
 
-  <% if (typeof error !== 'undefined' && error) { %>
-    <div class="code-window" style="background: #fca5a5; padding: 16px; margin-bottom: 24px; font-weight: bold;">
-      <i class="fas fa-exclamation-circle"></i> <%= error %>
-    </div>
-  <% } %>
-
-  <% if (snippets && snippets.length > 0) { %>
-    <div id="snippets">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="font-size: 1.8rem; font-weight: 700; text-transform: uppercase;">Available Snippets</h2>
-        <span class="tag tag-yellow"><%= snippets.length %> Total</span>
+  <!-- Browse Gallery Header -->
+  <div class="gallery-section" id="gallery">
+    <h2 class="section-title">Browse the gallery</h2>
+    
+    <!-- Filters & Search -->
+    <div class="controls-wrapper">
+      <div class="filter-tags">
+        <span class="tag tag-yellow filter-active">ALL <span class="count">33</span></span>
+        <span class="tag filter-tag">DOWNLOADER <span class="count">8</span></span>
+        <span class="tag filter-tag">MAKER <span class="count">5</span></span>
+        <span class="tag filter-tag">TOOLS <span class="count">7</span></span>
+        <span class="tag filter-tag">AI <span class="count">2</span></span>
+        <span class="tag filter-tag">SEARCH <span class="count">3</span></span>
+        <span class="tag filter-tag">CONVERT <span class="count">6</span></span>
+        <span class="tag filter-tag">STALKER <span class="count">2</span></span>
       </div>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search snippets...">
+      </div>
+    </div>
 
-      <div style="display: grid; gap: 20px;">
-        <% snippets.forEach((snippet) => { %>
-          <div class="code-window snippet-card" style="padding: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
-              
-              <a href="/files/<%= encodeURIComponent(snippet.filename) %>" style="text-decoration: none; color: inherit; flex: 1;">
-                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;">
-                  <i class="fas fa-file-code" style="color: #6b7280; margin-right: 8px;"></i>
-                  <%= snippet.filename %>
-                </h3>
-                <p class="description" style="font-size: 1rem; margin-bottom: 16px;"><%= snippet.description %></p>
-                
-                <div class="tags-group" style="margin-bottom: 0;">
-                  <span class="tag tag-green"><%= snippet.language %></span>
-                  <span class="meta-tag"><i class="far fa-clock"></i> <%= snippet.updatedAt %></span>
+    <!-- Alert Error (Jika ada error dari server) -->
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="card error-card">
+        <i class="fas fa-exclamation-triangle"></i> <%= error %>
+      </div>
+    <% } %>
+
+    <!-- Snippet Grid -->
+    <% if (snippets && snippets.length > 0) { %>
+      <div class="snippet-grid">
+        <% snippets.forEach((snippet, index) => { 
+            // Menentukan warna icon secara acak/berurutan berdasarkan index untuk contoh tampilan
+            const colors = ['red', 'purple', 'pink', 'blue', 'green'];
+            const colorClass = colors[index % colors.length];
+        %>
+          <div class="card snippet-card">
+            
+            <div class="card-header">
+              <div class="icon-box icon-<%= colorClass %>">
+                <i class="fas fa-file-code"></i>
+              </div>
+              <div class="category-badge badge-<%= colorClass %>">
+                <%= typeof snippet.category !== 'undefined' ? snippet.category : 'MAKER' %>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title"><%= snippet.filename.replace('.mjs', '').replace('.js', '').replace(/_/g, ' ').toUpperCase() %></h3>
+              <p class="card-filename"><%= snippet.filename %></p>
+              <span class="small-tech-tag">#node.js</span>
+            </div>
+
+            <hr class="card-divider">
+
+            <div class="card-footer">
+              <div class="meta-data">
+                <div class="meta-col">
+                  <span class="meta-label">TAGS</span>
+                  <span class="meta-value">#node.js</span>
                 </div>
-              </a>
-
-              <a href="/actions/<%= snippet.id %>?filename=<%= encodeURIComponent(snippet.filename) %>" class="btn-neo small-btn" title="More actions">
-                <i class="fas fa-ellipsis-v"></i>
-              </a>
+                <div class="meta-col">
+                  <span class="meta-label">LANG</span>
+                  <span class="meta-value"><%= snippet.language || 'javascript' %></span>
+                </div>
+              </div>
               
+              <a href="/files/<%= encodeURIComponent(snippet.filename) %>" class="btn-neo black-btn block-btn">
+                View details &rarr;
+              </a>
             </div>
           </div>
         <% }); %>
       </div>
-    </div>
-  <% } else { %>
-    
-    <div class="code-window" style="text-align: center; padding: 60px 20px;">
-      <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 16px; color: #4b5563;"></i>
-      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">No snippets yet</h3>
-      <p class="description" style="margin-bottom: 24px;">Be the first to create a snippet and share your code with the world.</p>
-      <a href="/admin" class="btn-neo icon-btn" style="text-decoration: none;">
-        <i class="fas fa-plus"></i> Create Snippet
-      </a>
-    </div>
-  <% } %>
-
-  <div style="margin-top:40px; display: flex; justify-content: center; gap: 16px; align-items: center; font-family: 'JetBrains Mono', monospace;">
-    <% if (currentPage > 1) { %>
-      <a href="/?page=<%= currentPage - 1 %>" class="btn-neo small-btn" style="text-decoration: none;">&larr; Prev</a>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="card empty-state">
+        <i class="fas fa-folder-open empty-icon"></i>
+        <h3>No snippets yet</h3>
+        <p>Be the first to create a snippet and share your code.</p>
+        <a href="/admin" class="btn-neo black-btn" style="text-decoration: none;">Create Snippet</a>
+      </div>
     <% } %>
 
-    <span class="tag tag-yellow" style="font-size: 1rem;">Page <%= currentPage %></span>
+    <!-- Pagination -->
+    <div class="pagination-wrapper">
+      <div class="pagination">
+        <a href="?page=<%= currentPage > 1 ? currentPage - 1 : 1 %>" class="page-btn <%= currentPage === 1 ? 'disabled' : '' %>">&lsaquo;</a>
+        
+        <span class="page-btn active"><%= currentPage %></span>
+        <% if (snippets && snippets.length >= 10) { %> <!-- Asumsi 10 per halaman -->
+          <a href="?page=<%= currentPage + 1 %>" class="page-btn"><%= currentPage + 1 %></a>
+          <a href="?page=<%= currentPage + 2 %>" class="page-btn"><%= currentPage + 2 %></a>
+        <% } %>
+        
+        <a href="?page=<%= currentPage + 1 %>" class="page-btn">&rsaquo;</a>
+      </div>
+      <p class="page-info">Page <%= currentPage %> of 3 - 33 snippets</p>
+    </div>
 
-    <a href="/?page=<%= currentPage + 1 %>" class="btn-neo small-btn" style="text-decoration: none;">Next &rarr;</a>
   </div>
-
 </main>
 
 <%- include('./layout/footer') %>
