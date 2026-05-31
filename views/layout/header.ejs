@@ -3,26 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0a0a0a">
-  <title><%= typeof title !== 'undefined' ? title : 'Fik Snipset' %></title>
+  <meta name="theme-color" content="#faf9f6">
+  <title><%= typeof title !== 'undefined' ? title : 'CodeSpace - Snippets' %></title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-one-dark.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
-  
+  <!-- CSS Utama -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   
+  <!-- Navbar Global Neo-Brutalism -->
   <nav class="navbar">
-    <a href="/" style="text-decoration: none; color: inherit;">
-      <div class="logo">FikSnipset<span class="dot">.</span></div>
-    </a>
-    <div class="nav-actions">
-      <a href="/" class="btn-neo badge-btn" style="text-decoration: none;"><i class="fas fa-home"></i> Home</a>
-      <a href="/admin" class="btn-neo badge-btn" style="text-decoration: none; background: var(--primary-yellow);"><i class="fas fa-plus"></i> Create</a>
+    <div class="nav-left">
+      <a href="/" style="text-decoration: none; color: inherit;">
+        <div class="logo">CodeSpace<span class="dot">.</span></div>
+      </a>
+    </div>
+    
+    <div class="nav-center hidden-mobile">
+      <a href="/" class="nav-link active">Snippets</a>
+      <a href="#" class="nav-link">Report</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="visits-badge hidden-mobile">
+        <i class="far fa-eye"></i> 307 visits
+      </div>
+      <div class="notification">
+        <i class="far fa-bell"></i>
+        <span class="notif-badge">2</span>
+      </div>
+      <a href="/admin" class="btn-neo small-btn black-btn" style="text-decoration: none; border-radius: 20px;">
+        <i class="fas fa-sign-in-alt"></i> Sign in
+      </a>
     </div>
   </nav>
 
