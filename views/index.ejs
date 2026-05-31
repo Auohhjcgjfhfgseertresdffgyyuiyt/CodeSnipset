@@ -1,83 +1,84 @@
 <%- include('./layout/header') %>
 
-<div class="animate-load">
-  <div class="hero-section">
-    <p class="hero-text">Halooo! Welcome To</p>
-    <h1 class="hero-title">Fik Snipset</h1>
-    <p class="hero-desc">Sebuah Code Snipset untuk menyimpan dan share snipset, UI/UX minimalis dan responsife.</p>
+<main class="container">
+  
+  <div class="hero-section" style="text-align: center; padding: 40px 0; border-bottom: 2px solid var(--border-color); margin-bottom: 40px;">
+    <p style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #4b5563;">Halooo! Welcome To</p>
+    <h1 class="title" style="font-size: 3.5rem; margin: 16px 0;">FIK SNIPSET</h1>
+    <p class="description" style="max-width: 600px; margin: 0 auto 24px;">Sebuah Code Snipset untuk menyimpan dan share snipset, UI/UX minimalis dan responsif.</p>
     
-    <div class="hero-cta">
-      <a href="/admin" class="btn btn-black">
-        <i class="fas fa-plus"></i>
-        Create Snippet
+    <div class="action-buttons" style="justify-content: center;">
+      <a href="/admin" class="btn-neo icon-btn" style="text-decoration: none; background: var(--primary-yellow);">
+        <i class="fas fa-plus"></i> Create Snippet
       </a>
-      <a href="#snippets" class="btn btn-outline">
-        <i class="fas fa-folder"></i>
-        Browse All
+      <a href="#snippets" class="btn-neo icon-btn" style="text-decoration: none;">
+        <i class="fas fa-folder"></i> Browse All
       </a>
     </div>
   </div>
 
   <% if (typeof error !== 'undefined' && error) { %>
-    <div class="card card-padded alert alert-error mt-8">
-      <i class="fas fa-exclamation-circle"></i>
-      <span><%= error %></span>
+    <div class="code-window" style="background: #fca5a5; padding: 16px; margin-bottom: 24px; font-weight: bold;">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
     </div>
   <% } %>
 
   <% if (snippets && snippets.length > 0) { %>
-    <div class="snippet-list" id="snippets">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-folder"></i>
-          Available Snippets
-        </h2>
-        <span class="section-badge"><%= snippets.length %> Total</span>
+    <div id="snippets">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; text-transform: uppercase;">Available Snippets</h2>
+        <span class="tag tag-yellow"><%= snippets.length %> Total</span>
       </div>
 
-      <% snippets.forEach((snippet) => { %>
-        <div class="card snippet-card">
-          <div class="snippet-card-wrapper">
-            <a href="/files/<%= encodeURIComponent(snippet.filename) %>" class="snippet-card-link">
-              <div class="snippet-card-content">
-                <div class="snippet-icon">
-                  <i class="fas fa-file-code"></i>
+      <div style="display: grid; gap: 20px;">
+        <% snippets.forEach((snippet) => { %>
+          <div class="code-window snippet-card" style="padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+              
+              <a href="/files/<%= encodeURIComponent(snippet.filename) %>" style="text-decoration: none; color: inherit; flex: 1;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;">
+                  <i class="fas fa-file-code" style="color: #6b7280; margin-right: 8px;"></i>
+                  <%= snippet.filename %>
+                </h3>
+                <p class="description" style="font-size: 1rem; margin-bottom: 16px;"><%= snippet.description %></p>
+                
+                <div class="tags-group" style="margin-bottom: 0;">
+                  <span class="tag tag-green"><%= snippet.language %></span>
+                  <span class="meta-tag"><i class="far fa-clock"></i> <%= snippet.updatedAt %></span>
                 </div>
-                <div class="snippet-info">
-                  <div class="snippet-name">
-                    <%= snippet.filename %>
-                    <span class="snippet-lang"><%= snippet.language %></span>
-                  </div>
-                  <div class="snippet-desc"><%= snippet.description %></div>
-                </div>
-              </div>
-            </a>
-            <div class="snippet-meta">
-              <span class="snippet-date">
-                <i class="far fa-clock"></i>
-                <%= snippet.updatedAt %>
-              </span>
-              <a href="/actions/<%= snippet.id %>?filename=<%= encodeURIComponent(snippet.filename) %>" class="btn-action-dots" title="More actions">
+              </a>
+
+              <a href="/actions/<%= snippet.id %>?filename=<%= encodeURIComponent(snippet.filename) %>" class="btn-neo small-btn" title="More actions">
                 <i class="fas fa-ellipsis-v"></i>
               </a>
+              
             </div>
           </div>
-        </div>
-      <% }); %>
+        <% }); %>
+      </div>
     </div>
   <% } else { %>
-    <div class="card empty-state mt-8">
-      <div class="empty-icon">
-        <i class="fas fa-folder-open"></i>
-      </div>
-      <h3 class="empty-title">No snippets yet</h3>
-      <p class="empty-desc">Be the first to create a snippet and share your code with the world</p>
-      <a href="/admin" class="btn btn-black">
-        <i class="fas fa-plus"></i>
-        Create Snippet
+    
+    <div class="code-window" style="text-align: center; padding: 60px 20px;">
+      <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 16px; color: #4b5563;"></i>
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">No snippets yet</h3>
+      <p class="description" style="margin-bottom: 24px;">Be the first to create a snippet and share your code with the world.</p>
+      <a href="/admin" class="btn-neo icon-btn" style="text-decoration: none;">
+        <i class="fas fa-plus"></i> Create Snippet
       </a>
     </div>
   <% } %>
-</div>
+
+  <div style="margin-top:40px; display: flex; justify-content: center; gap: 16px; align-items: center; font-family: 'JetBrains Mono', monospace;">
+    <% if (currentPage > 1) { %>
+      <a href="/?page=<%= currentPage - 1 %>" class="btn-neo small-btn" style="text-decoration: none;">&larr; Prev</a>
+    <% } %>
+
+    <span class="tag tag-yellow" style="font-size: 1rem;">Page <%= currentPage %></span>
+
+    <a href="/?page=<%= currentPage + 1 %>" class="btn-neo small-btn" style="text-decoration: none;">Next &rarr;</a>
+  </div>
+
+</main>
 
 <%- include('./layout/footer') %>
